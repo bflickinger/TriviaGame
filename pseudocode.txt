@@ -1,0 +1,47 @@
+Layout:
+
+// Stretch screen with rotating backgrounds of scifi movies
+
+                            <h1>SciFi Trivia Game!<h1>
+
+<h3>You have x seconds per question, click an answer to begin<h3>
+
+                            <h3Timer in seconds<h3> (at first, a button to click to begin)
+
+                 Correct: #questCorrect      Incorrect: #questIncorrect
+
+                                 Q - <question>
+
+                                    Answer One
+                                    Answer Two
+                                    Answer Three
+                                    Answer Four
+
+Javascript:
+
+var isGameStarted = false;
+
+object triviaGame
+
+    function checkAnswer(item clicked)
+        if clicked question = correctAnswer, then
+            increment questCorrect and update div
+            function guessResult ()
+        else
+            increment questIncorrect
+        if
+        function
+
+
+document.ready
+    on.click Start button
+        funtion getAPIData()
+        function startCountDown()
+        function displayQuestion()
+    on.click Answer one, two, three or four (class .playerGuess)
+        function checkAnswer()
+
+
+
+
+
