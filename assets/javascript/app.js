@@ -9,7 +9,7 @@ $(document).ready();
     ], {duration: 5000, fade: 750});
 
 $(document).ready(function(){
-    $("#countdown").hide();
+    $("#timer").hide();
     $("#start").on("click", trivia.initGame);
     $(document).on("click" , ".option", trivia.guessChecker);
 });
@@ -32,14 +32,12 @@ var trivia = {
             url: this.queryURL,
             method: "GET"
             }).then(function(response) {
-                console.log(response);
                 $.each(response.results, function(index){
                     trivia.tQuestion[index] = response.results[index].question;
                     trivia.tAnswer[index] = response.results[index].correct_answer;
                     trivia.tChoices[index] = response.results[index].incorrect_answers;
                     trivia.tChoices[index].push(response.results[index].correct_answer);
                     trivia.tChoices[index].sort(() => Math.random() - 0.5);
-                    // console.log(trivia.tChoices[index]);
                 });
         });
     },
@@ -53,7 +51,7 @@ var trivia = {
         $("#results").html("");
         $("#timer").text(trivia.timer);
         $("#start").hide();
-        $("#countdown").show();
+        $("#timer").show();
         trivia.getQuestions();
         trivia.askQuestion();
         
@@ -61,14 +59,13 @@ var trivia = {
     askQuestion : function(){
         trivia.timer = 10;
         $("#timer").removeClass("last-seconds");
-        $("#timer").text(trivia.timer);
+        $("#timer").text("Time left: " + trivia.timer);
         if(!trivia.timerEnabled){
             trivia.timerId = setInterval(trivia.timerRunning, 1000);
         }
         $("#question").text("Get Ready!");
         setTimeout(function(){
-            $("#question").text(trivia.tQuestion[trivia.currentQuestion]);
-            console.log(trivia.tQuestion[0]);
+            $("#question").html(trivia.tQuestion[trivia.currentQuestion]);
             $.each(trivia.tChoices[trivia.currentQuestion], function(index, key){
                 $("#options").append($("<div><button class='option btn btn-info btn-lg'>"+key+"</button></div>"));
             });
@@ -77,7 +74,7 @@ var trivia = {
     },
     timerRunning : function(){
         if(trivia.timer > -1 && trivia.currentQuestion < Object.keys(trivia.tQuestion).length){
-        $("#timer").text(trivia.timer);
+        $("#timer").text("Time left: " + trivia.timer);
         trivia.timer--;
             if(trivia.timer === 4){
                 $("#timer").addClass("last-seconds");
